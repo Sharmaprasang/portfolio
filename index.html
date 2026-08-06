@@ -175,9 +175,10 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 .pm-sec{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:1.5px;margin:26px 0 12px;text-transform:uppercase}
 .pm-body ul{margin:0 0 8px 18px;color:var(--muted);font-size:14.5px;line-height:1.75}
 .pm-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
-.pm-gallery .gp{aspect-ratio:4/3;border:1px solid var(--line);border-radius:4px;overflow:hidden;
+.pm-gallery .gp{aspect-ratio:4/3;border:1px solid var(--line);border-radius:4px;overflow:hidden;cursor:pointer;transition:.25s;
  background:repeating-linear-gradient(45deg,#f0e8d5,#f0e8d5 10px,#ece4d1 10px,#ece4d1 20px);
  display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:9px;text-align:center;padding:10px}
+.pm-gallery .gp:hover{opacity:.85;transform:scale(1.02)}
 .pm-gallery .gp img{width:100%;height:100%;object-fit:cover}
 .pm-note{margin-top:24px;padding:14px 18px;border:1px dashed rgba(210,80,42,.4);border-radius:4px;background:rgba(210,80,42,.03);
  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.5px;line-height:1.7}
@@ -212,7 +213,7 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 .gmore small{font-size:9.5px;letter-spacing:1.5px;margin-top:4px;opacity:.85}
 .gallery-cta{text-align:center;margin-top:22px}
 /* full gallery viewer */
-#galleryModal{display:none;position:fixed;inset:0;background:rgba(15,18,20,.96);z-index:260;
+#galleryModal{display:none;position:fixed;inset:0;background:rgba(15,18,20,.96);z-index:310;
  align-items:center;justify-content:center;flex-direction:column;padding:20px}
 #galleryModal.open{display:flex}
 #galleryModal .gmClose{position:absolute;top:18px;right:22px;font-size:26px;color:#fff;opacity:.75;cursor:pointer;font-family:'IBM Plex Mono',monospace}
@@ -565,7 +566,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="academic" data-id="thesis" role="button" tabindex="0">
-        <div class="proj-img" style="background:var(--paper2)"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test" style="object-fit:contain"></div>
+        <div class="proj-img" style="aspect-ratio:auto"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test" style="height:auto;object-fit:unset"></div>
         <div class="cat">ACADEMIC · FINAL YEAR PROJECT · 2024</div>
         <h3>Foundation Design for a Multistorey Building via Direct Shear Test</h3>
         <p>Complete analysis and design of an RC multistorey building in Dhulikhel per NBC: ETABS modelling, seismic load assessment, member design, and mat foundation design with bearing capacity from laboratory Direct Shear testing.</p>
@@ -908,7 +909,7 @@ var PROJECT_DATA = {
     meta: ['Role: Assessment Engineer', 'Method: Non-destructive testing', 'Buildings assessed: 4'],
     heroPhoto: 'assets/photos/proj-assess-ambassador.jpg',
     overview: [
-      "Ongoing non-destructive structural condition assessment work, evaluating buildings entirely without damaging them — used by clients to decide between continued occupancy, targeted repair, or full seismic retrofit. To date this has covered four buildings: one commercial property and three residential buildings, including a residence rented by the EU for one of its diplomats and the Australian Ambassador's residence in Naxal.",
+      "Ongoing non-destructive structural condition assessment work, evaluating buildings entirely without damaging them — used by clients to decide between continued occupancy, targeted repair, or full seismic retrofit. To date this has covered four buildings: one commercial property and three residential buildings, including a residence rented by the EU for one of its diplomats and the EU Ambassador's residence in Naxal.",
       "Diplomatic missions in Kathmandu are a recurring client base for this type of assessment, and Earthquake Safety Solutions has been engaged repeatedly for this work — a reflection of the trust placed in rigorous, standards-based condition reporting ahead of occupancy or retrofit decisions."
     ],
     methods: ['Rebar scanning (cover, spacing, corrosion risk)', 'Foundation exploration & bearing verification', 'Rebound hammer test (concrete/masonry strength)', 'In-situ masonry shear test (horizontal jack method)', 'Penetrometer test (mortar strength)'],
@@ -966,9 +967,10 @@ function openProject(id) {
   if (!d) return;
 
   // hero photo or placeholder
-  pmHero.style.background = (d.photoFit === 'contain') ? 'var(--paper2)' : '';
+  pmHero.style.background = '';
+  pmHero.style.aspectRatio = (d.photoFit === 'contain') ? 'auto' : '';
   pmHero.innerHTML = d.heroPhoto
-    ? '<img src="' + d.heroPhoto + '" alt="' + d.title + '" style="object-fit:' + (d.photoFit || 'cover') + '">'
+    ? '<img src="' + d.heroPhoto + '" alt="' + d.title + '"' + (d.photoFit === 'contain' ? ' style="height:auto;object-fit:unset"' : '') + '>'
     : '[ PROJECT PHOTO — add a wide image as the cover ]';
 
   var html = '';
@@ -988,11 +990,11 @@ function openProject(id) {
     html += '<div class="pm-sec">Outcome</div><p>' + d.outcome + '</p>';
   }
 
-  // photo grid — only shown when real photos exist
+  // photo grid — only shown when real photos exist; click any to enlarge & browse
   if (d.photos && d.photos.length) {
     html += '<div class="pm-sec">Project Photos</div><div class="pm-gallery">';
-    d.photos.forEach(function(src){
-      html += '<div class="gp"><img src="'+src+'" alt="" onerror="this.closest(\'.gp\').style.display=\'none\'"></div>';
+    d.photos.forEach(function(src, i){
+      html += '<div class="gp" data-i="'+i+'"><img src="'+src+'" alt="" onerror="this.closest(\'.gp\').style.display=\'none\'"></div>';
     });
     html += '</div>';
   }
@@ -1000,6 +1002,13 @@ function openProject(id) {
   pmBody.innerHTML = html;
   pm.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  if (d.photos && d.photos.length) {
+    var projSet = d.photos.map(function(src){ return {src: src, cap: d.title}; });
+    pmBody.querySelectorAll('.pm-gallery .gp').forEach(function(cell){
+      cell.addEventListener('click', function(){ openViewer(projSet, parseInt(cell.dataset.i, 10)); });
+    });
+  }
 }
 function closeProject() {
   pm.classList.remove('open');
@@ -1048,36 +1057,44 @@ function renderGalleryPreview() {
   }
   wrap.innerHTML = html;
   wrap.querySelectorAll('.gtile').forEach(function(t) {
-    t.addEventListener('click', function() { openGallery(parseInt(t.dataset.i, 10)); });
+    t.addEventListener('click', function() {
+      openViewer(GALLERY_PHOTOS.map(function(p){ return {src:'assets/photos/'+p.file, cap:p.cap}; }), parseInt(t.dataset.i, 10));
+    });
   });
 }
 renderGalleryPreview();
 
-var gIndex = 0;
+/* ---- Generic photo viewer: used by the Field Gallery AND every project's photo grid ---- */
+var vIndex = 0;
+var vSet = [];
 var galleryModal = document.getElementById('galleryModal');
 
-function openGallery(i) {
-  gIndex = i || 0;
+function openViewer(set, i) {
+  vSet = set;
+  vIndex = i || 0;
   galleryModal.classList.add('open');
   document.body.style.overflow = 'hidden';
-  showGalleryImage();
+  showViewerImage();
 }
 function closeGallery() {
   galleryModal.classList.remove('open');
   document.body.style.overflow = '';
 }
-function showGalleryImage() {
-  var p = GALLERY_PHOTOS[gIndex];
+function showViewerImage() {
+  var p = vSet[vIndex];
   var wrap = document.getElementById('gmImgWrap');
-  wrap.innerHTML = '<img src="assets/photos/' + p.file + '" alt="' + p.cap + '" ' +
-    'onerror="this.parentElement.innerHTML=\'<div class=&quot;gmMissing&quot;>Photo not added yet<br>assets/photos/' + p.file + '</div>\'">';
+  wrap.innerHTML = '<img src="' + p.src + '" alt="' + p.cap + '" ' +
+    'onerror="this.parentElement.innerHTML=\'<div class=&quot;gmMissing&quot;>Photo not added yet<br>' + p.src + '</div>\'">';
   document.getElementById('gmCap').textContent = p.cap;
-  document.getElementById('gmCount').textContent = (gIndex + 1) + ' / ' + GALLERY_PHOTOS.length;
+  document.getElementById('gmCount').textContent = (vIndex + 1) + ' / ' + vSet.length;
 }
-function galleryNext() { gIndex = (gIndex + 1) % GALLERY_PHOTOS.length; showGalleryImage(); }
-function galleryPrev() { gIndex = (gIndex - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length; showGalleryImage(); }
+function galleryNext() { vIndex = (vIndex + 1) % vSet.length; showViewerImage(); }
+function galleryPrev() { vIndex = (vIndex - 1 + vSet.length) % vSet.length; showViewerImage(); }
 
-document.getElementById('viewGalleryBtn').addEventListener('click', function(e) { e.preventDefault(); openGallery(0); });
+document.getElementById('viewGalleryBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  openViewer(GALLERY_PHOTOS.map(function(p){ return {src:'assets/photos/'+p.file, cap:p.cap}; }), 0);
+});
 document.getElementById('gmClose').addEventListener('click', closeGallery);
 document.getElementById('gmNext').addEventListener('click', galleryNext);
 document.getElementById('gmPrev').addEventListener('click', galleryPrev);

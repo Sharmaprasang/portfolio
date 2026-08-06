@@ -128,7 +128,7 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 .fbtn{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;padding:9px 16px;background:var(--paper2);
  border:1px solid var(--line);color:var(--muted);cursor:pointer;transition:.2s;border-radius:3px}
 .fbtn.active,.fbtn:hover{border-color:var(--accent);color:var(--accent)}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:start}
 .proj{border:1px solid var(--line);background:var(--paper2);padding:28px;display:flex;flex-direction:column;transition:.3s;border-radius:6px;box-shadow:var(--shadow)}
 .proj:hover{transform:translateY(-4px);border-color:var(--accent)}
 .proj.hide{display:none}
@@ -521,7 +521,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
     </div>
     <div class="pgrid">
       <div class="proj reveal" data-c="retrofit" data-id="diplomatic" role="button" tabindex="0">
-       <div class="proj-img"><img src="assets/photos/proj-retrofit-diplomatic.jpg" alt="Seismic retrofit supervision, diplomatic residence"></div>
+        <div class="proj-img"><img src="assets/photos/proj-retrofit-diplomatic.jpg" alt="Seismic retrofit supervision, diplomatic residence"></div>
         <div class="cat">RETROFITTING · 2025—PRESENT</div>
         <h3>Seismic Retrofit — Diplomatic Residence, Kathmandu</h3>
         <p>Supervision of a URM load-bearing building's conversion to reinforced masonry: reinforcement splints and bandages at critical locations, schedule control, QA/QC and certification documentation.</p>
@@ -529,7 +529,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="assess" data-id="ambassador" role="button" tabindex="0">
-        <div class="proj-img"><img src="assets/photos/proj-assess-ambassador.jpg" alt="Structural assessment, ambassadorial residence">
+        <div class="proj-img"><img src="assets/photos/proj-assess-ambassador.jpg" alt="Structural assessment, ambassadorial residence"></div>
         <div class="cat">ASSESSMENT · 2025</div>
         <h3>Structural Assessment — Ambassadorial Residence, Naxal</h3>
         <p>Detailed condition assessment of a URM building: in-situ masonry shear testing (horizontal jack method), penetrometer testing for mortar strength, and HILTI rebar scanning of beams.</p>
@@ -537,7 +537,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="retrofit" data-id="rc-residential" role="button" tabindex="0">
-       <div class="proj-img"><img src="assets/photos/proj-retrofit-rc.jpg" alt="RC residential building seismic retrofit"></div>
+        <div class="proj-img"><img src="assets/photos/proj-retrofit-rc.jpg" alt="RC residential building seismic retrofit"></div>
         <div class="cat">RETROFITTING · JAN–OCT 2025</div>
         <h3>Seismic Retrofit — RC Residential Building, Kathmandu</h3>
         <p>Site engineering for an RC retrofit: column jacketing with additional rebars, new shear walls with specified detailing, and CFRP sheet application on beams for flexural strengthening.</p>
@@ -553,7 +553,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="academic" data-id="thesis" role="button" tabindex="0">
-       <div class="proj-img"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test"></div>
+        <div class="proj-img"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test"></div>
         <div class="cat">ACADEMIC · FINAL YEAR PROJECT · 2024</div>
         <h3>Foundation Design for a Multistorey Building via Direct Shear Test</h3>
         <p>Complete analysis and design of an RC multistorey building in Dhulikhel per NBC: ETABS modelling, seismic load assessment, member design, and mat foundation design with bearing capacity from laboratory Direct Shear testing.</p>
@@ -898,7 +898,7 @@ var PROJECT_DATA = {
     cat: 'RETROFITTING · 2025—PRESENT',
     title: 'Seismic Retrofit — Diplomatic Residence, Kathmandu',
     meta: ['Role: Civil Site Engineer', 'Status: Ongoing', 'Structure: URM load-bearing'],
-    heroPhoto: '',  // e.g. 'assets/photos/proj-retrofit-diplomatic.jpg'
+    heroPhoto: 'assets/photos/proj-retrofit-diplomatic.jpg',
     overview: [
       "Supervision of the seismic retrofit of an unreinforced masonry (URM) load-bearing residence at a diplomatic compound, converting it into a reinforced-masonry system capable of resisting earthquake loads.",
       "The strengthening scheme uses reinforced-concrete splints at wall junctions and openings, with horizontal bandages at lintel and sill levels — tying the masonry together so it behaves as one connected structure during shaking."
@@ -911,7 +911,7 @@ var PROJECT_DATA = {
     cat: 'ASSESSMENT · 2025',
     title: 'Structural Assessment — Ambassadorial Residence, Naxal',
     meta: ['Role: Assessment Engineer', 'Method: Non-destructive testing', 'Structure: URM'],
-    heroPhoto: '',
+    heroPhoto: 'assets/photos/proj-assess-ambassador.jpg',
     overview: [
       "A detailed structural condition assessment of an unreinforced masonry ambassadorial residence, carried out entirely with non-destructive methods so the occupied building was never damaged during investigation.",
       "Findings fed directly into the decision on whether, and how, to retrofit the structure."
@@ -924,7 +924,7 @@ var PROJECT_DATA = {
     cat: 'RETROFITTING · JAN–OCT 2025',
     title: 'Seismic Retrofit — RC Residential Building, Kathmandu',
     meta: ['Role: Site Engineer (support)', 'Technique: CFRP & jacketing', 'Structure: RC frame'],
-    heroPhoto: '',
+    heroPhoto: 'assets/photos/proj-retrofit-rc.jpg',
     overview: [
       "Site engineering support on the seismic retrofit of a reinforced-concrete residential building, combining three complementary strengthening techniques to raise the building's lateral capacity.",
       "Work included column jacketing with additional reinforcement, construction of new shear walls, and application of carbon-fibre-reinforced polymer (CFRP) sheets to strengthen beams in bending."
@@ -937,7 +937,7 @@ var PROJECT_DATA = {
     cat: 'ASSESSMENT · OCT 2023',
     title: 'Post-Earthquake Damage Assessment — Bajhang M6.3',
     meta: ['Role: Volunteer Field Assessor', 'Event: M6.3 earthquake', 'Coverage: 4 sites, 2 municipalities'],
-    heroPhoto: '',
+    heroPhoto: 'assets/photos/proj-bajhang.jpg',
     overview: [
       "Volunteer field assessment after the magnitude-6.3 Bajhang earthquake of October 2023, carried out with Earthquake Safety Solutions across Jayaprithvi and Thalara municipalities in far-western Nepal.",
       "Assessed a range of structures: traditional stone- and brick-masonry housing, two secondary schools, and the historic Byasikot Durbar palace — documenting how each typology failed and what could be saved."
@@ -950,7 +950,7 @@ var PROJECT_DATA = {
     cat: 'ACADEMIC · FINAL YEAR PROJECT · 2024',
     title: 'Foundation Design for a Multistorey Building via Direct Shear Test',
     meta: ['Role: Team of 5 · Lead on foundation', 'Tools: ETABS · NBC', 'Published: InJET 2024'],
-    heroPhoto: '',
+    heroPhoto: 'assets/photos/proj-thesis.jpg',
     overview: [
       "Final-year capstone project: the complete structural analysis and design of a reinforced-concrete multistorey building in Dhulikhel, designed to the Nepal Building Code (NBC).",
       "The distinctive contribution was the foundation: bearing capacity was determined from laboratory Direct Shear testing of site soil, then applied through Terzaghi's equation — an approach later developed into a published research paper."
@@ -1101,7 +1101,6 @@ document.querySelectorAll('.qbtn').forEach(function(b) {
   b.addEventListener('click', function() { addMsg(b.dataset.q, 'user-m'); answer(b.dataset.q); });
 });
 </script>
-<script data-goatcounter="https://sharmaprasang.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://sharmaprasang.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

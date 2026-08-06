@@ -954,7 +954,7 @@ var PROJECT_DATA = {
     ],
     methods: ['3D structural modelling and seismic analysis in ETABS', 'Design of slabs, beams, columns, staircase and shear walls', 'Laboratory Direct Shear testing of foundation soil', 'Mat foundation design to NBC'],
     outcome: "A full building design validated against code, plus a research finding (published in InJET, 2024) showing Direct Shear testing as a practical bearing-capacity method for small projects.",
-    photos: ['assets/photos/thesis_2.jpg', 'assets/photos/thesis_3.jpg', 'assets/photos/thesis_4.jpg']
+    photos: [{src:'assets/photos/thesis_2.jpg', fit:'contain'}, 'assets/photos/thesis_3.jpg', 'assets/photos/thesis_4.jpg']
   }
 };
 
@@ -993,8 +993,11 @@ function openProject(id) {
   // photo grid — only shown when real photos exist; click any to enlarge & browse
   if (d.photos && d.photos.length) {
     html += '<div class="pm-sec">Project Photos</div><div class="pm-gallery">';
-    d.photos.forEach(function(src, i){
-      html += '<div class="gp" data-i="'+i+'"><img src="'+src+'" alt="" onerror="this.closest(\'.gp\').style.display=\'none\'"></div>';
+    d.photos.forEach(function(p, i){
+      var src = (typeof p === 'string') ? p : p.src;
+      var fit = (typeof p === 'object' && p.fit) ? p.fit : 'cover';
+      var bg = (fit === 'contain') ? ' style="background:var(--paper2)"' : '';
+      html += '<div class="gp" data-i="'+i+'"'+bg+'><img src="'+src+'" alt="" style="object-fit:'+fit+'" onerror="this.closest(\'.gp\').style.display=\'none\'"></div>';
     });
     html += '</div>';
   }
@@ -1004,7 +1007,7 @@ function openProject(id) {
   document.body.style.overflow = 'hidden';
 
   if (d.photos && d.photos.length) {
-    var projSet = d.photos.map(function(src){ return {src: src, cap: d.title}; });
+    var projSet = d.photos.map(function(p){ return {src: (typeof p === 'string') ? p : p.src, cap: d.title}; });
     pmBody.querySelectorAll('.pm-gallery .gp').forEach(function(cell){
       cell.addEventListener('click', function(){ openViewer(projSet, parseInt(cell.dataset.i, 10)); });
     });

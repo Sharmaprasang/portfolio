@@ -355,7 +355,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
 <nav>
   <div class="brand">
     <span class="badge">PS</span>
-    <div class="logo">PRASANG <span>SHARMA</span></div>
+    <div class="logo">ER. PRASANG <span>SHARMA</span></div>
   </div>
   <ul id="navlinks">
     <li><a href="#about">About</a></li>
@@ -565,7 +565,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="academic" data-id="thesis" role="button" tabindex="0">
-        <div class="proj-img"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test"></div>
+        <div class="proj-img" style="background:var(--paper2)"><img src="assets/photos/proj-thesis.jpg" alt="Foundation design thesis, Direct Shear Test" style="object-fit:contain"></div>
         <div class="cat">ACADEMIC · FINAL YEAR PROJECT · 2024</div>
         <h3>Foundation Design for a Multistorey Building via Direct Shear Test</h3>
         <p>Complete analysis and design of an RC multistorey building in Dhulikhel per NBC: ETABS modelling, seismic load assessment, member design, and mat foundation design with bearing capacity from laboratory Direct Shear testing.</p>
@@ -694,7 +694,7 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
     <div class="foot-col">
       <div class="foot-brand">
         <span class="badge">PS</span>
-        <div class="logo">PRASANG <span>SHARMA</span></div>
+        <div class="logo">ER. PRASANG <span>SHARMA</span></div>
       </div>
       <p class="foot-tagline">Civil engineer — seismic retrofitting, structural assessment and field investigation. Kathmandu, Nepal.</p>
     </div>
@@ -946,6 +946,7 @@ var PROJECT_DATA = {
     title: 'Foundation Design for a Multistorey Building via Direct Shear Test',
     meta: ['Role: Team of 5 · Lead on foundation', 'Tools: ETABS · NBC', 'Published: InJET 2024'],
     heroPhoto: 'assets/photos/proj-thesis.jpg',
+    photoFit: 'contain', // shows the full photo without cropping (this photo is a closer, taller shot)
     overview: [
       "Final-year capstone project: the complete structural analysis and design of a reinforced-concrete multistorey building in Dhulikhel, designed to the Nepal Building Code (NBC).",
       "The distinctive contribution was the foundation: bearing capacity was determined from laboratory Direct Shear testing of site soil, then applied through Terzaghi's equation — an approach later developed into a published research paper."
@@ -965,8 +966,9 @@ function openProject(id) {
   if (!d) return;
 
   // hero photo or placeholder
+  pmHero.style.background = (d.photoFit === 'contain') ? 'var(--paper2)' : '';
   pmHero.innerHTML = d.heroPhoto
-    ? '<img src="' + d.heroPhoto + '" alt="' + d.title + '">'
+    ? '<img src="' + d.heroPhoto + '" alt="' + d.title + '" style="object-fit:' + (d.photoFit || 'cover') + '">'
     : '[ PROJECT PHOTO — add a wide image as the cover ]';
 
   var html = '';

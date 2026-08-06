@@ -194,9 +194,12 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 .intent p{font-size:14.5px;color:var(--ink);font-family:'Fraunces',serif;font-style:italic;line-height:1.8}
 .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:24px}
 /* GALLERY — compact preview + full browsable viewer */
-.gprev{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:36px}
+.gprev{display:grid;grid-template-columns:repeat(5,1fr);gap:14px 8px;margin-top:36px;align-items:start}
+.gcell{display:flex;flex-direction:column}
 .gtile{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:4px;border:1px solid var(--line);
  background:repeating-linear-gradient(45deg,#f0e8d5,#f0e8d5 10px,#ece4d1 10px,#ece4d1 20px);cursor:pointer}
+.gtile-cap{margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:9px;line-height:1.5;color:var(--muted);
+ letter-spacing:.3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .gtile img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
 .gtile:hover img{transform:scale(1.06)}
 .gtile.noimg img{display:none}
@@ -538,11 +541,11 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="assess" data-id="ambassador" role="button" tabindex="0">
-        <div class="proj-img"><img src="assets/photos/proj-assess-ambassador.jpg" alt="Structural assessment, ambassadorial residence"></div>
-        <div class="cat">ASSESSMENT · 2025</div>
-        <h3>Structural Assessment — Ambassadorial Residence, Naxal</h3>
-        <p>Detailed condition assessment of a URM building: in-situ masonry shear testing (horizontal jack method), penetrometer testing for mortar strength, and HILTI rebar scanning of beams.</p>
-        <div class="tools">NDT · MASONRY SHEAR TEST · REBAR SCAN</div>
+        <div class="proj-img"><img src="assets/photos/proj-assess-ambassador.jpg" alt="Non-destructive structural assessment across diplomatic, commercial, and residential buildings"></div>
+        <div class="cat">ASSESSMENT · 2024–PRESENT</div>
+        <h3>Structural Condition Assessments — Diplomatic, Commercial & Residential Buildings</h3>
+        <p>Non-destructive structural assessment across four buildings — including diplomatic residences — using rebar scanning, rebound hammer, in-situ shear, penetrometer, and foundation exploration testing.</p>
+        <div class="tools">NDT · 4 BUILDINGS ASSESSED · EMBASSY CLIENTS</div>
         <div class="proj-more">View project details →</div>
       </div>
       <div class="proj reveal" data-c="retrofit" data-id="rc-residential" role="button" tabindex="0">
@@ -897,20 +900,20 @@ var PROJECT_DATA = {
     ],
     methods: ['Reinforcement splints & bandages at critical locations', 'MS Project schedule tracking', 'QA/QC checks against approved drawings', 'Billing certification & documentation'],
     outcome: "An occupied heritage-style residence strengthened in place, without demolition — preserving the building while bringing it toward modern seismic safety.",
-    photos: []  // ['assets/photos/diplomatic-1.jpg','assets/photos/diplomatic-2.jpg']
+    photos: ['assets/photos/diplomatic_2.jpg', 'assets/photos/diplomatic_3.jpg', 'assets/photos/diplomatic_4.jpg']
   },
   'ambassador': {
-    cat: 'ASSESSMENT · 2025',
-    title: 'Structural Assessment — Ambassadorial Residence, Naxal',
-    meta: ['Role: Assessment Engineer', 'Method: Non-destructive testing', 'Structure: URM'],
+    cat: 'ASSESSMENT · 2024–PRESENT',
+    title: 'Structural Condition Assessments — Diplomatic, Commercial & Residential Buildings',
+    meta: ['Role: Assessment Engineer', 'Method: Non-destructive testing', 'Buildings assessed: 4'],
     heroPhoto: 'assets/photos/proj-assess-ambassador.jpg',
     overview: [
-      "A detailed structural condition assessment of an unreinforced masonry ambassadorial residence, carried out entirely with non-destructive methods so the occupied building was never damaged during investigation.",
-      "Findings fed directly into the decision on whether, and how, to retrofit the structure."
+      "Ongoing non-destructive structural condition assessment work, evaluating buildings entirely without damaging them — used by clients to decide between continued occupancy, targeted repair, or full seismic retrofit. To date this has covered four buildings: one commercial property and three residential buildings, including a residence rented by the EU for one of its diplomats and the Australian Ambassador's residence in Naxal.",
+      "Diplomatic missions in Kathmandu are a recurring client base for this type of assessment, and Earthquake Safety Solutions has been engaged repeatedly for this work — a reflection of the trust placed in rigorous, standards-based condition reporting ahead of occupancy or retrofit decisions."
     ],
-    methods: ['In-situ masonry shear testing (horizontal jack method)', 'Penetrometer testing for mortar strength', 'HILTI rebar scanning of beams and elements', 'Crack mapping and condition survey'],
-    outcome: "A documented evidence base on the building's real material strengths, enabling an informed, safe retrofit strategy.",
-    photos: []
+    methods: ['Rebar scanning (cover, spacing, corrosion risk)', 'Foundation exploration & bearing verification', 'Rebound hammer test (concrete/masonry strength)', 'In-situ masonry shear test (horizontal jack method)', 'Penetrometer test (mortar strength)'],
+    outcome: "Each assessment produces a structural condition report used for the client's occupancy or retrofit decision — several of which have since proceeded to full retrofit contracts with ESS.",
+    photos: ['assets/photos/ndt_1.jpg', 'assets/photos/ndt_2.jpg', 'assets/photos/ndt_3.jpg']
   },
   'rc-residential': {
     cat: 'RETROFITTING · JAN–OCT 2025',
@@ -936,7 +939,7 @@ var PROJECT_DATA = {
     ],
     methods: ['Rapid Visual Screening (RVS) of damaged structures', 'Documentation of failure patterns by typology', 'Findings on lintel/sill-band absence and masonry delamination', 'Retrofit vs. reconstruction recommendations to local government'],
     outcome: "Practical evidence on why traditional buildings failed — and which could be safely retrofitted rather than demolished — supporting the local build-back-better response.",
-    photos: []
+    photos: ['assets/photos/bajhang_2.jpg', 'assets/photos/bajhang_3.jpg', 'assets/photos/bajhang_4.jpg']
   },
   'thesis': {
     cat: 'ACADEMIC · FINAL YEAR PROJECT · 2024',
@@ -949,7 +952,7 @@ var PROJECT_DATA = {
     ],
     methods: ['3D structural modelling and seismic analysis in ETABS', 'Design of slabs, beams, columns, staircase and shear walls', 'Laboratory Direct Shear testing of foundation soil', 'Mat foundation design to NBC'],
     outcome: "A full building design validated against code, plus a research finding (published in InJET, 2024) showing Direct Shear testing as a practical bearing-capacity method for small projects.",
-    photos: []
+    photos: ['assets/photos/thesis_2.jpg', 'assets/photos/thesis_3.jpg', 'assets/photos/thesis_4.jpg']
   }
 };
 
@@ -983,18 +986,14 @@ function openProject(id) {
     html += '<div class="pm-sec">Outcome</div><p>' + d.outcome + '</p>';
   }
 
-  // photo grid
-  html += '<div class="pm-sec">Project Photos</div><div class="pm-gallery">';
+  // photo grid — only shown when real photos exist
   if (d.photos && d.photos.length) {
-    d.photos.forEach(function(src){ html += '<div class="gp"><img src="'+src+'" alt=""></div>'; });
-  } else {
-    for (var i = 0; i < 3; i++) {
-      html += '<div class="gp">+ ADD PHOTO<br>assets/photos/</div>';
-    }
+    html += '<div class="pm-sec">Project Photos</div><div class="pm-gallery">';
+    d.photos.forEach(function(src){
+      html += '<div class="gp"><img src="'+src+'" alt="" onerror="this.closest(\'.gp\').style.display=\'none\'"></div>';
+    });
+    html += '</div>';
   }
-  html += '</div>';
-
-  html += '<div class="pm-note">TO ADD MORE: open data in the build, find this project under PROJECT_DATA, and add photo filenames or extra detail. The panel updates automatically — no design changes needed.</div>';
 
   pmBody.innerHTML = html;
   pm.classList.add('open');
@@ -1014,13 +1013,14 @@ document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeP
 
 /* ---- Field Gallery: preview + full browsable viewer ---- */
 var GALLERY_PHOTOS = [
-  {file:'gallery-hero.jpg',    cap:'SEISMIC RETROFIT SITE — KATHMANDU, 2025'},
-  {file:'gallery-ndt.jpg',     cap:'NDT ASSESSMENT — REBOUND HAMMER, 2025'},
-  {file:'gallery-bajhang.jpg', cap:'BAJHANG EARTHQUAKE RESPONSE — OCT 2023'},
-  {file:'gallery-survey.jpg',  cap:'TOTAL STATION SURVEY — COLLEGE FIELD PRACTICAL'},
-  {file:'gallery-autocad.jpg', cap:'STRUCTURAL DRAWINGS — AUTOCAD DETAILING'},
-  {file:'gallery-site2.jpg',   cap:'CONSTRUCTION SITE — COLUMN INSPECTION'},
-  {file:'gallery-college.jpg', cap:'COLLEGE FIELD WORK — KANTIPUR ENGINEERING COLLEGE'}
+  {file:'gallery-hero.jpg',        cap:'SEISMIC RETROFIT SITE — KATHMANDU, 2025'},
+  {file:'gallery-ndt.jpg',         cap:'NDT ASSESSMENT — REBOUND HAMMER, 2025'},
+  {file:'gallery-bajhang.jpg',     cap:'BAJHANG EARTHQUAKE RESPONSE — OCT 2023'},
+  {file:'gallery-survey.jpg',      cap:'LAND SURVEYING — TOTAL STATION SETUP FOR A RESIDENTIAL APARTMENT SITE'},
+  {file:'gallery-autocad.jpg',     cap:'STRUCTURAL DRAWINGS — AUTOCAD DETAILING'},
+  {file:'gallery-site2.jpg',       cap:'CONSTRUCTION SITE — COLUMN INSPECTION'},
+  {file:'gallery-college.jpg',     cap:'COLLEGE FIELD WORK — KANTIPUR ENGINEERING COLLEGE'},
+  {file:'gallery-embassy-65th.jpg',cap:'65TH ANNIVERSARY OF NEPAL–AUSTRALIA DIPLOMATIC RELATIONS'}
   // TO ADD MORE: copy a line above, change file + cap, upload that file to assets/photos/.
   // Nothing else needs editing — it shows up in the full gallery automatically.
 ];
@@ -1034,11 +1034,14 @@ function renderGalleryPreview() {
   var html = '';
   for (var i = 0; i < showCount; i++) {
     var isLast = (i === showCount - 1) && extra > 0;
-    html += '<div class="gtile" data-i="' + i + '">' +
-              '<img src="assets/photos/' + GALLERY_PHOTOS[i].file + '" alt="' + GALLERY_PHOTOS[i].cap + '" ' +
-              'onerror="this.parentElement.classList.add(\'noimg\')">' +
-              '<div class="gph">+</div>' +
-              (isLast ? '<div class="gmore"><span>+' + extra + '</span><small>VIEW ALL</small></div>' : '') +
+    html += '<div class="gcell">' +
+              '<div class="gtile" data-i="' + i + '">' +
+                '<img src="assets/photos/' + GALLERY_PHOTOS[i].file + '" alt="' + GALLERY_PHOTOS[i].cap + '" ' +
+                'onerror="this.parentElement.classList.add(\'noimg\')">' +
+                '<div class="gph">+</div>' +
+                (isLast ? '<div class="gmore"><span>+' + extra + '</span><small>VIEW ALL</small></div>' : '') +
+              '</div>' +
+              (isLast ? '' : '<div class="gtile-cap">' + GALLERY_PHOTOS[i].cap + '</div>') +
             '</div>';
   }
   wrap.innerHTML = html;

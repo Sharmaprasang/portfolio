@@ -193,33 +193,42 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 .intent{margin-top:26px;padding:28px 32px;border:1px solid rgba(28,91,102,.3);background:rgba(28,91,102,.06);border-radius:6px}
 .intent p{font-size:14.5px;color:var(--ink);font-family:'Fraunces',serif;font-style:italic;line-height:1.8}
 .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:24px}
-/* GALLERY */
-.gintro{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:44px}
-.gintro .big{grid-row:span 2}
-.gpic{position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:4px;cursor:pointer}
-.gintro .big{aspect-ratio:3/4}
-.gintro .sm{aspect-ratio:4/3}
-.gpic img{width:100%;height:100%;object-fit:cover;display:block;transition:.45s}
-.gpic:hover img{transform:scale(1.04)}
-.gpic .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
- background:repeating-linear-gradient(45deg,#f0e8d5,#f0e8d5 14px,#ece4d1 14px,#ece4d1 28px);
- color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-align:center;padding:16px}
-.gpic .ph b{font-size:28px;color:rgba(27,26,23,.25);display:block;font-family:'Fraunces',serif}
-.gpic .gcap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;font-family:'IBM Plex Mono',monospace;
- font-size:10px;color:#fff;letter-spacing:1px;background:linear-gradient(transparent,rgba(27,26,23,.75))}
-.gstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
-.gstrip .gpic{aspect-ratio:1/1}
+/* GALLERY — compact preview + full browsable viewer */
+.gprev{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:36px}
+.gtile{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:4px;border:1px solid var(--line);
+ background:repeating-linear-gradient(45deg,#f0e8d5,#f0e8d5 10px,#ece4d1 10px,#ece4d1 20px);cursor:pointer}
+.gtile img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.gtile:hover img{transform:scale(1.06)}
+.gtile.noimg img{display:none}
+.gtile .gph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+ color:rgba(27,26,23,.3);font-family:'Fraunces',serif;font-size:26px}
+.gtile.noimg .gph{display:flex}
+.gmore{position:absolute;inset:0;background:rgba(20,25,30,.68);color:#fff;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace}
+.gmore span{display:block;font-size:26px;font-weight:600}
+.gmore small{font-size:9.5px;letter-spacing:1.5px;margin-top:4px;opacity:.85}
+.gallery-cta{text-align:center;margin-top:22px}
+/* full gallery viewer */
+#galleryModal{display:none;position:fixed;inset:0;background:rgba(15,18,20,.96);z-index:260;
+ align-items:center;justify-content:center;flex-direction:column;padding:20px}
+#galleryModal.open{display:flex}
+#galleryModal .gmClose{position:absolute;top:18px;right:22px;font-size:26px;color:#fff;opacity:.75;cursor:pointer;font-family:'IBM Plex Mono',monospace}
+#galleryModal .gmClose:hover{opacity:1}
+#galleryModal .gmStage{display:flex;align-items:center;justify-content:center;gap:18px;width:100%;max-width:1100px}
+#galleryModal .gmArrow{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;
+ width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;flex:0 0 auto;transition:.2s}
+#galleryModal .gmArrow:hover{background:rgba(255,255,255,.2)}
+#galleryModal .gmImgWrap{flex:1;display:flex;align-items:center;justify-content:center;min-width:0;position:relative}
+#galleryModal img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:4px}
+#galleryModal .gmMissing{color:rgba(255,255,255,.55);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;text-align:center;padding:60px 20px}
+#galleryModal .gmMeta{margin-top:18px;text-align:center;font-family:'IBM Plex Mono',monospace;color:#fff}
+#galleryModal .gmCap{font-size:11.5px;letter-spacing:1.5px;opacity:.9}
+#galleryModal .gmCount{font-size:10px;letter-spacing:2px;opacity:.5;margin-top:6px}
 .glabel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:1px;
- margin-top:20px;line-height:1.9;padding:16px 20px;border:1px dashed rgba(210,80,42,.4);border-radius:4px;
+ margin-top:22px;line-height:1.9;padding:16px 20px;border:1px dashed rgba(210,80,42,.4);border-radius:4px;
  background:rgba(210,80,42,.03);text-align:center}
-/* lightbox */
-#lb{display:none;position:fixed;inset:0;background:rgba(27,26,23,.93);z-index:200;align-items:center;justify-content:center;padding:20px}
-#lb.open{display:flex}
-#lb img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:4px}
-#lb .lbclose{position:absolute;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;font-family:'IBM Plex Mono',monospace;opacity:.7}
-#lb .lbclose:hover{opacity:1}
-#lb .lbcap{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;
- font-size:11px;color:#fff;letter-spacing:2px;opacity:.8;white-space:nowrap}
+@media(max-width:640px){.gprev{grid-template-columns:repeat(3,1fr)}
+ #galleryModal .gmStage{gap:8px}#galleryModal .gmArrow{width:38px;height:38px;font-size:16px}}
 /* PROJECT PHOTO SLOT */
 .proj-img{aspect-ratio:16/9;overflow:hidden;border-radius:4px;border:1px solid var(--line);margin-bottom:16px;background:var(--paper);position:relative}
 .proj-img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -571,40 +580,17 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
     <h2 class="reveal">On the ground, <em>in the field.</em></h2>
     <p class="sub reveal">Site supervision, non-destructive testing, earthquake response, and surveying — the work behind the CV.</p>
 
-    <!-- FEATURED 2-up layout -->
-    <div class="gintro reveal">
-      <div class="gpic big" data-cap="SEISMIC RETROFIT SITE — KATHMANDU, 2025">
-        <div class="ph"><b>+</b>YOUR BEST SITE PHOTO<br>e.g. you on scaffolding / supervising<br><span style="color:var(--accent);margin-top:4px">assets/photos/gallery-hero.jpg</span></div>
-      </div>
-      <div class="gpic sm" data-cap="NDT ASSESSMENT — REBOUND HAMMER, 2025">
-        <div class="ph"><b>+</b>NDT IN ACTION<br>rebound hammer / UPV test on wall<br><span style="color:var(--accent);margin-top:4px">assets/photos/gallery-ndt.jpg</span></div>
-      </div>
-      <div class="gpic sm" data-cap="BAJHANG EARTHQUAKE RESPONSE — OCT 2023">
-        <div class="ph"><b>+</b>BAJHANG FIELD WORK<br>damaged building / RVS assessment<br><span style="color:var(--accent);margin-top:4px">assets/photos/gallery-bajhang.jpg</span></div>
-      </div>
-    </div>
+    <div class="gprev reveal" id="gPrev"></div>
 
-    <!-- STRIP of 4 -->
-    <div class="gstrip">
-      <div class="gpic reveal" data-cap="TOTAL STATION SURVEY — COLLEGE FIELD PRACTICAL">
-        <div class="ph"><b>+</b>SURVEYING<br>Total Station fieldwork<br>assets/photos/gallery-survey.jpg</div>
-      </div>
-      <div class="gpic reveal" data-cap="STRUCTURAL DRAWINGS — AUTOCAD DETAILING">
-        <div class="ph"><b>+</b>DRAWINGS / DESK<br>AutoCAD or site drawings review<br>assets/photos/gallery-autocad.jpg</div>
-      </div>
-      <div class="gpic reveal" data-cap="CONSTRUCTION SITE — COLUMN INSPECTION">
-        <div class="ph"><b>+</b>COLUMN / REBAR<br>formwork, rebar or slab inspection<br>assets/photos/gallery-site2.jpg</div>
-      </div>
-      <div class="gpic reveal" data-cap="COLLEGE FIELD WORK — KANTIPUR ENGINEERING COLLEGE">
-        <div class="ph"><b>+</b>COLLEGE PRACTICAL<br>lab or field session at KEC<br>assets/photos/gallery-college.jpg</div>
-      </div>
+    <div class="gallery-cta reveal">
+      <a class="cta" href="#" id="viewGalleryBtn">VIEW FULL GALLERY →</a>
     </div>
 
     <div class="glabel reveal">
-      <b style="color:var(--accent);display:block;margin-bottom:6px">HOW TO ADD YOUR PHOTOS</b>
-      Create a folder called <b>assets/photos/</b> inside your website folder.<br>
-      Save each photo using the filename shown above (e.g. gallery-hero.jpg).<br>
-      Replace the &lt;div class="ph"&gt; blocks with &lt;img src="assets/photos/gallery-hero.jpg" alt="..."&gt; — covered in the build guide.
+      <b style="color:var(--accent);display:block;margin-bottom:6px">HOW TO ADD PHOTOS (NOW OR LATER)</b>
+      Upload your photo to <b>assets/photos/</b> using any filename you like.<br>
+      Then near the bottom of this file, find <b>GALLERY_PHOTOS</b> and add one line: <b>{file:'yourfile.jpg', cap:'YOUR CAPTION'}</b><br>
+      That's it — it appears in the gallery automatically. No other code to touch, and there's no limit on how many you add.
     </div>
   </div>
 </section>
@@ -736,7 +722,19 @@ footer{position:relative;z-index:2;background:var(--concrete);border-top:2px sol
   </div>
 </footer>
 
-<div id="lb"><span class="lbclose" id="lbclose">✕</span><img id="lbimg" src="" alt=""><div class="lbcap" id="lbcap"></div></div>
+<!-- FULL GALLERY VIEWER -->
+<div id="galleryModal">
+  <span class="gmClose" id="gmClose">✕</span>
+  <div class="gmStage">
+    <button class="gmArrow" id="gmPrev" aria-label="Previous">‹</button>
+    <div class="gmImgWrap" id="gmImgWrap"></div>
+    <button class="gmArrow" id="gmNext" aria-label="Next">›</button>
+  </div>
+  <div class="gmMeta">
+    <div class="gmCap" id="gmCap"></div>
+    <div class="gmCount" id="gmCount"></div>
+  </div>
+</div>
 
 <!-- PROJECT DETAIL MODAL -->
 <div id="pm">
@@ -1020,22 +1018,77 @@ document.getElementById('pmClose').addEventListener('click', closeProject);
 pm.addEventListener('click', function(e){ if (e.target === pm) closeProject(); });
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeProject(); });
 
-var lb     = document.getElementById('lb');
-var lbimg  = document.getElementById('lbimg');
-var lbcap  = document.getElementById('lbcap');
+/* ---- Field Gallery: preview + full browsable viewer ---- */
+var GALLERY_PHOTOS = [
+  {file:'gallery-hero.jpg',    cap:'SEISMIC RETROFIT SITE — KATHMANDU, 2025'},
+  {file:'gallery-ndt.jpg',     cap:'NDT ASSESSMENT — REBOUND HAMMER, 2025'},
+  {file:'gallery-bajhang.jpg', cap:'BAJHANG EARTHQUAKE RESPONSE — OCT 2023'},
+  {file:'gallery-survey.jpg',  cap:'TOTAL STATION SURVEY — COLLEGE FIELD PRACTICAL'},
+  {file:'gallery-autocad.jpg', cap:'STRUCTURAL DRAWINGS — AUTOCAD DETAILING'},
+  {file:'gallery-site2.jpg',   cap:'CONSTRUCTION SITE — COLUMN INSPECTION'},
+  {file:'gallery-college.jpg', cap:'COLLEGE FIELD WORK — KANTIPUR ENGINEERING COLLEGE'}
+  // TO ADD MORE: copy a line above, change file + cap, upload that file to assets/photos/.
+  // Nothing else needs editing — it shows up in the full gallery automatically.
+];
+var GALLERY_PREVIEW_COUNT = 5; // how many small tiles show on the page itself
 
-document.querySelectorAll('.gpic').forEach(function(g) {
-  g.addEventListener('click', function() {
-    var img = g.querySelector('img');
-    if (!img) return;
-    lbimg.src = img.src;
-    lbcap.textContent = g.dataset.cap || '';
-    lb.classList.add('open');
+function renderGalleryPreview() {
+  var wrap = document.getElementById('gPrev');
+  if (!wrap) return;
+  var showCount = Math.min(GALLERY_PREVIEW_COUNT, GALLERY_PHOTOS.length);
+  var extra = GALLERY_PHOTOS.length - showCount;
+  var html = '';
+  for (var i = 0; i < showCount; i++) {
+    var isLast = (i === showCount - 1) && extra > 0;
+    html += '<div class="gtile" data-i="' + i + '">' +
+              '<img src="assets/photos/' + GALLERY_PHOTOS[i].file + '" alt="' + GALLERY_PHOTOS[i].cap + '" ' +
+              'onerror="this.parentElement.classList.add(\'noimg\')">' +
+              '<div class="gph">+</div>' +
+              (isLast ? '<div class="gmore"><span>+' + extra + '</span><small>VIEW ALL</small></div>' : '') +
+            '</div>';
+  }
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.gtile').forEach(function(t) {
+    t.addEventListener('click', function() { openGallery(parseInt(t.dataset.i, 10)); });
   });
+}
+renderGalleryPreview();
+
+var gIndex = 0;
+var galleryModal = document.getElementById('galleryModal');
+
+function openGallery(i) {
+  gIndex = i || 0;
+  galleryModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  showGalleryImage();
+}
+function closeGallery() {
+  galleryModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showGalleryImage() {
+  var p = GALLERY_PHOTOS[gIndex];
+  var wrap = document.getElementById('gmImgWrap');
+  wrap.innerHTML = '<img src="assets/photos/' + p.file + '" alt="' + p.cap + '" ' +
+    'onerror="this.parentElement.innerHTML=\'<div class=&quot;gmMissing&quot;>Photo not added yet<br>assets/photos/' + p.file + '</div>\'">';
+  document.getElementById('gmCap').textContent = p.cap;
+  document.getElementById('gmCount').textContent = (gIndex + 1) + ' / ' + GALLERY_PHOTOS.length;
+}
+function galleryNext() { gIndex = (gIndex + 1) % GALLERY_PHOTOS.length; showGalleryImage(); }
+function galleryPrev() { gIndex = (gIndex - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length; showGalleryImage(); }
+
+document.getElementById('viewGalleryBtn').addEventListener('click', function(e) { e.preventDefault(); openGallery(0); });
+document.getElementById('gmClose').addEventListener('click', closeGallery);
+document.getElementById('gmNext').addEventListener('click', galleryNext);
+document.getElementById('gmPrev').addEventListener('click', galleryPrev);
+galleryModal.addEventListener('click', function(e) { if (e.target === galleryModal) closeGallery(); });
+document.addEventListener('keydown', function(e) {
+  if (!galleryModal.classList.contains('open')) return;
+  if (e.key === 'Escape') closeGallery();
+  if (e.key === 'ArrowRight') galleryNext();
+  if (e.key === 'ArrowLeft') galleryPrev();
 });
-document.getElementById('lbclose').addEventListener('click', function() { lb.classList.remove('open'); });
-lb.addEventListener('click', function(e) { if (e.target === lb) lb.classList.remove('open'); });
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') lb.classList.remove('open'); });
 
 /* ---- FAQ Chatbot ---- */
 var KB = [

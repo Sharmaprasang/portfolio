@@ -162,7 +162,8 @@ a.link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(210
 @keyframes pmIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .pm-hero{position:relative;aspect-ratio:21/9;background:repeating-linear-gradient(45deg,#f0e8d5,#f0e8d5 14px,#ece4d1 14px,#ece4d1 28px);
  display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;text-align:center;padding:20px;border-bottom:1px solid var(--line)}
-.pm-hero img{width:100%;height:100%;object-fit:cover}
+.pm-hero img{width:100%;height:100%;object-fit:cover;transition:.25s}
+.pm-hero:hover img{opacity:.88}
 .pm-close{position:absolute;top:14px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(27,26,23,.7);
  color:#fff;border:none;font-size:20px;cursor:pointer;z-index:5;font-family:'IBM Plex Mono',monospace}
 .pm-close:hover{background:var(--accent)}
@@ -966,9 +967,10 @@ function openProject(id) {
   var d = PROJECT_DATA[id];
   if (!d) return;
 
-  // hero photo or placeholder
+  // hero photo or placeholder — clickable, opens the same browsable viewer as the extra photos
   pmHero.style.background = '';
   pmHero.style.aspectRatio = (d.photoFit === 'contain') ? 'auto' : '';
+  pmHero.style.cursor = d.heroPhoto ? 'pointer' : '';
   pmHero.innerHTML = d.heroPhoto
     ? '<img src="' + d.heroPhoto + '" alt="' + d.title + '"' + (d.photoFit === 'contain' ? ' style="height:auto;object-fit:unset"' : '') + '>'
     : '[ PROJECT PHOTO — add a wide image as the cover ]';
@@ -1006,10 +1008,17 @@ function openProject(id) {
   pm.classList.add('open');
   document.body.style.overflow = 'hidden';
 
+  // one combined, browsable photo set per project: cover first, then the extras
+  var fullSet = [];
+  if (d.heroPhoto) fullSet.push({src: d.heroPhoto, cap: d.title});
   if (d.photos && d.photos.length) {
-    var projSet = d.photos.map(function(p){ return {src: (typeof p === 'string') ? p : p.src, cap: d.title}; });
+    d.photos.forEach(function(p){ fullSet.push({src: (typeof p === 'string') ? p : p.src, cap: d.title}); });
+  }
+  pmHero.onclick = d.heroPhoto ? function(){ openViewer(fullSet, 0); } : null;
+  if (d.photos && d.photos.length) {
+    var offset = d.heroPhoto ? 1 : 0;
     pmBody.querySelectorAll('.pm-gallery .gp').forEach(function(cell){
-      cell.addEventListener('click', function(){ openViewer(projSet, parseInt(cell.dataset.i, 10)); });
+      cell.addEventListener('click', function(){ openViewer(fullSet, offset + parseInt(cell.dataset.i, 10)); });
     });
   }
 }
@@ -1027,14 +1036,12 @@ document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeP
 
 /* ---- Field Gallery: preview + full browsable viewer ---- */
 var GALLERY_PHOTOS = [
-  {file:'gallery-hero.jpg',        cap:'SEISMIC RETROFIT SITE — KATHMANDU, 2025'},
-  {file:'gallery-ndt.jpg',         cap:'NDT ASSESSMENT — REBOUND HAMMER, 2025'},
-  {file:'gallery-bajhang.jpg',     cap:'BAJHANG EARTHQUAKE RESPONSE — OCT 2023'},
-  {file:'gallery-survey.jpg',      cap:'LAND SURVEYING — TOTAL STATION SETUP FOR A RESIDENTIAL APARTMENT SITE'},
-  {file:'gallery-autocad.jpg',     cap:'STRUCTURAL DRAWINGS — AUTOCAD DETAILING'},
-  {file:'gallery-site2.jpg',       cap:'CONSTRUCTION SITE — COLUMN INSPECTION'},
-  {file:'gallery-college.jpg',     cap:'COLLEGE FIELD WORK — KANTIPUR ENGINEERING COLLEGE'},
-  {file:'gallery-embassy-65th.jpg',cap:'65TH ANNIVERSARY OF NEPAL–AUSTRALIA DIPLOMATIC RELATIONS'}
+  {file:'gallery_hero.jpg',        cap:'SEISMIC RETROFIT SITE — KATHMANDU, 2025'},
+  {file:'gallery_ndt.jpg',         cap:'NDT ASSESSMENT — REBOUND HAMMER, 2025'},
+  {file:'gallery_bajhang.jpg',     cap:'BAJHANG EARTHQUAKE RESPONSE — OCT 2023'},
+  {file:'gallery_survey.jpg',      cap:'LAND SURVEYING — TOTAL STATION SETUP FOR A RESIDENTIAL APARTMENT SITE'},
+  {file:'gallery_autocad.jpg',     cap:'STRUCTURAL DRAWINGS — AUTOCAD DETAILING'},
+  {file:'gallery_embassy_65th.jpg',cap:'65TH ANNIVERSARY OF NEPAL–AUSTRALIA DIPLOMATIC RELATIONS'}
   // TO ADD MORE: copy a line above, change file + cap, upload that file to assets/photos/.
   // Nothing else needs editing — it shows up in the full gallery automatically.
 ];
